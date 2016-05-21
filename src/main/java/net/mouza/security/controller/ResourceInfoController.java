@@ -18,7 +18,7 @@ public class ResourceInfoController {
 
     @RequestMapping(value = "lists")
     public String lists(Model model) {
-        model.addAttribute("resourceInfos",resourceInfoService.lists());
+        model.addAttribute("resourceInfos", resourceInfoService.lists());
         return "system/lists";
     }
 
