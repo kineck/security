@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -34,8 +36,8 @@ public class RoleResourceRelationsServiceTest {
     @Test
     public void testInsert() throws Exception {
         RoleResourceRelations rrrs = new RoleResourceRelations();
-        RoleInfo roleInfo = roleInfoService.lists().get(0);
-        ResourceInfo resourceInfo = resourceInfoService.lists().get(0);
+        RoleInfo roleInfo = roleInfoService.lists().get(1);
+        ResourceInfo resourceInfo = resourceInfoService.lists().get(4);
         rrrs.setRoleUuid(roleInfo.getRoleUuid());
         rrrs.setResourceUuid(resourceInfo.getResourceUuid());
         roleResourceRelationsService.insert(rrrs);
@@ -43,6 +45,7 @@ public class RoleResourceRelationsServiceTest {
 
     @Test
     public void testLists() throws Exception {
-
+        List<RoleResourceRelations> lists = roleResourceRelationsService.lists();
+        System.out.println(lists);
     }
 }

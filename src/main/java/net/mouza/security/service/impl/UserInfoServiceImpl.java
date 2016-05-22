@@ -22,8 +22,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void addUser(UserInfo userInfo) {
-        userInfo.setUserUuid(UUIDGenerator.getUUID());
-        userInfoMapper.insert(userInfo);
+        if (userInfo != null) {
+            userInfo.setUserUuid(UUIDGenerator.getUUID());
+            userInfoMapper.insert(userInfo);
+        }
     }
 
     @Override

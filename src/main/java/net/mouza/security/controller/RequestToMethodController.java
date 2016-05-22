@@ -24,11 +24,11 @@ import java.util.Set;
 /**
  * Created by MouZa on 16/5/19.
  */
-@Controller
-@RequestMapping(value = "system")
+
+//@RequestMapping(value = "system")
 public class RequestToMethodController {
 
-    @RequestMapping(value = "index")
+    //@RequestMapping(value = "index")
     public ModelAndView index(HttpServletRequest request) {
         ServletContext servletContext = request.getSession().getServletContext();
         if (servletContext == null) {

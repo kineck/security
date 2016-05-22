@@ -16,27 +16,27 @@
     <!--@PostFilter：该注解用来对方法的返回结果进行过滤。从返回的集合中过滤掉表达式值为假的元素。如@PostFilter("hasPermission(filterObject, 'read')")说明返回的结果中只保留当前用户有读权限的元素。-->
     <!--@PreFilter：该注解用来对方法调用时的参数进行过滤。	-->
     <!--&ndash;&gt;-->
-    <!--<global-method-security pre-post-annotations="enabled"/>-->
-    <!--&lt;!&ndash; 不用权限管理的资源路径 &ndash;&gt;-->
-    <!--<http pattern="/css/**" security="none"/>-->
-    <!--<http pattern="/icon/**" security="none"/>-->
-    <!--<http pattern="/images/**" security="none"/>-->
-    <!--<http pattern="/js/**" security="none"/>-->
-    <!--<http pattern="/index.jsp" security="none"/>-->
-    <!--<http pattern="/login**/**" security="none"/>-->
-    <!--<http pattern="/getVerifyCode" security="none"/>-->
-    <!--<http pattern="/help" security="none"/>-->
+    <global-method-security pre-post-annotations="enabled"/>
+    <!-- 不用权限管理的资源路径 -->
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/icon/**" security="none"/>
+    <http pattern="/images/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/index.jsp" security="none"/>
+    <http pattern="/login**/**" security="none"/>
+    <http pattern="/getVerifyCode" security="none"/>
+    <http pattern="/help" security="none"/>
 
     <!--<http use-expressions="true">-->
-    <!--&lt;!&ndash; 或 &ndash;&gt;-->
-    <!--&lt;!&ndash;<http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/WEB-INF/errors/403.jsp" >&ndash;&gt;-->
-    <!--&lt;!&ndash; 指定某角色能访问的资源 &ndash;&gt;-->
-    <!--&lt;!&ndash;<intercept-url pattern="/u/super/**" access="hasRole('ROLE_SUPER')"/>&ndash;&gt;-->
-    <!--&lt;!&ndash; 以上未列出的，也都必须验证才能访问 &ndash;&gt;-->
-    <!--<intercept-url pattern="/**" access="isAuthenticated()"/>-->
-    <!--&lt;!&ndash;<concurrent-session-control />&ndash;&gt;-->
-    <!--&lt;!&ndash; 所有地址全开，无需验证，测试用 &ndash;&gt;-->
-    <!--&lt;!&ndash; <intercept-url pattern="/**" access="permitAll" /> &ndash;&gt;-->
+    <!-- 或 -->
+    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/WEB-INF/errors/403.jsp" >
+    <!-- 指定某角色能访问的资源 -->
+    <!--<intercept-url pattern="/u/super/**" access="hasRole('ROLE_SUPER')"/>-->
+    <!-- 以上未列出的，也都必须验证才能访问 -->
+    <intercept-url pattern="/**" access="isAuthenticated()"/>
+    <!--<concurrent-session-control />-->
+    <!-- 所有地址全开，无需验证，测试用 -->
+    <!-- <intercept-url pattern="/**" access="permitAll" /> -->
 
     <!--&lt;!&ndash; -->
     <!--logout-url 属性:这个指定的URL会触发注销操作，默认是 /j_spring_security_logout-->
@@ -91,19 +91,19 @@
     <!--&lt;!&ndash;</beans:bean>&ndash;&gt;-->
 
 
-    <!--&lt;!&ndash; 实现了 UserDetailsService 接口的类 &ndash;&gt;-->
-    <!--<authentication-manager alias="webAuthenticationManager">-->
-    <!--&lt;!&ndash;<authentication-provider user-service-ref="">&ndash;&gt;-->
-    <!--<authentication-provider>-->
-    <!--&lt;!&ndash; 密码的加密解密类 &ndash;&gt;-->
-    <!--<password-encoder ref="pwEncoder"/>-->
-    <!--<user-service>-->
-    <!--<user name="admin" password="admin" authorities="ROLE_ADMIN"></user>-->
-    <!--</user-service>-->
-    <!--&lt;!&ndash; 或 &ndash;&gt;-->
-    <!--&lt;!&ndash; <password-encoder hash="md5"/> &ndash;&gt;-->
-    <!--</authentication-provider>-->
-    <!--</authentication-manager>-->
+    <!-- 实现了 UserDetailsService 接口的类 -->
+    <authentication-manager alias="webAuthenticationManager">
+    <!--<authentication-provider user-service-ref="">-->
+    <authentication-provider>
+    <!-- 密码的加密解密类 -->
+    <password-encoder ref="pwEncoder"/>
+    <user-service>
+    <user name="admin" password="admin" authorities="ROLE_ADMIN"></user>
+    </user-service>
+    <!-- 或 -->
+     <password-encoder hash="md5"/>
+    </authentication-provider>
+    </authentication-manager>
 
     <!--&lt;!&ndash; 密码的加密解密类，可以换成自己的，实现 PasswordEncoder 接口即可 &ndash;&gt;-->
     <!--<beans:bean id="pwEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>-->

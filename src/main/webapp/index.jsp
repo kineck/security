@@ -1,4 +1,4 @@
 <%
-    response.sendRedirect(request.getContextPath()+"/system/index");
+    response.sendRedirect(request.getContextPath()+"/resource/lists");
 %>
 

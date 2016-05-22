@@ -29,21 +29,25 @@ public class UserInfoController {
     @RequestMapping(value = "user_add")
     public String addUser(UserInfo userInfo) {
         userInfoService.addUser(userInfo);
-        return "user/user_add";
+        return "/user/user_add";
     }
 
+    @RequestMapping(value = "login")
+    public String login(){
+        return "/user/login";
+    }
 
     @RequestMapping(value = "user_list")
     public String userInfos(Model model) {
         List<UserInfo> userInfos = userInfoService.userInfos();
         model.addAttribute("userInfos", userInfos);
-        return "user/user_list";
+        return "/user/user_list";
     }
 
     @RequestMapping(value = "res_list")
     public String resourceInfos(HttpServletRequest request) {
         resourceInfoService.generatorResourceInfo(request);
-        return InternalResourceViewResolver.REDIRECT_URL_PREFIX + "system/index";
+        return InternalResourceViewResolver.REDIRECT_URL_PREFIX + "/resource/lists";
     }
 
 }

@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by MouZa on 16/5/20.
@@ -19,7 +22,14 @@ public class ResourceInfoController {
     @RequestMapping(value = "lists")
     public String lists(Model model) {
         model.addAttribute("resourceInfos", resourceInfoService.lists());
-        return "system/lists";
+        return "/system/lists";
     }
+
+    @RequestMapping(value = "fixres")
+    public String fixres(HttpServletRequest request) {
+        resourceInfoService.generatorResourceInfo(request);
+        return InternalResourceViewResolver.REDIRECT_URL_PREFIX + "lists";
+    }
+
 
 }

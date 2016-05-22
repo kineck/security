@@ -5,7 +5,7 @@
   Time: 下午2:57
   To change this template use File | Settings | File Templates.
 --%>
-<%@ include file="../../common/inc.jsp" %>
+<%@ include file="../../common/tags.jsp" %>
 <html>
 <head>
     <title>Title</title>

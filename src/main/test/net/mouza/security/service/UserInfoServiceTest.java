@@ -5,6 +5,7 @@ import net.mouza.security.utils.UUIDGenerator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -25,10 +26,12 @@ public class UserInfoServiceTest {
 
     @Test
     public void testAddUser() throws Exception {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String password = bCryptPasswordEncoder.encode("admin");
         UserInfo userInfo = new UserInfo(UUIDGenerator.getUUID(),
                 "system",
-                "系统管理",
-                UUIDGenerator.getUUID(),
+                "系统",
+                password,
                 "shaoqing.ren@yahoo.com",
                 "13290909900",
                 "010-54369870",
@@ -46,7 +49,7 @@ public class UserInfoServiceTest {
     }
 
     @Test
-    public void testSelectByUserName(){
+    public void testSelectByUserName() {
         UserInfo userInfo = userInfoService.selectByUserName("admin");
         System.out.println(userInfo);
     }

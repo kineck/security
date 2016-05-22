@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>405</title>
+    <title>用来访问本页面的 HTTP 谓词不被允许（方法不被允许）</title>
 </head>
 <body>
-<h1>405 是什么?</h1>
+<h1>用来访问本页面的 HTTP 谓词不被允许（方法不被允许）</h1>
 </body>
 </html>

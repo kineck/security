@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>404</title>
+    <title>服务器500错误</title>
 </head>
 <body>
 <h1>
-   500错误
+    服务器500错误,我们已经记录错误,谢谢
 </h1>
 </body>
 </html>

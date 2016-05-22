@@ -32,6 +32,7 @@ public class RoleResourceRelationsServiceImpl implements RoleResourceRelationsSe
             } else //如果有此关联,而新数据已经,把旧的关联删除,资源与角色的原来关联去掉
             {
                 roleResourceRelationsMapper.deleteByPrimaryKey(record.getRecordUuid());
+                this.insert(record);
                 return 0;
             }
 

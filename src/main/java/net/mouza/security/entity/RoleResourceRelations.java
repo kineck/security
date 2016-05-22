@@ -55,7 +55,6 @@ public class RoleResourceRelations {
      * This method returns the value of the database column role_resource_relations.record_uuid
      *
      * @return the value of role_resource_relations.record_uuid
-     *
      * @mbggenerated
      */
     public String getRecordUuid() {
@@ -67,7 +66,6 @@ public class RoleResourceRelations {
      * This method sets the value of the database column role_resource_relations.record_uuid
      *
      * @param recordUuid the value for role_resource_relations.record_uuid
-     *
      * @mbggenerated
      */
     public void setRecordUuid(String recordUuid) {
@@ -79,7 +77,6 @@ public class RoleResourceRelations {
      * This method returns the value of the database column role_resource_relations.role_uuid
      *
      * @return the value of role_resource_relations.role_uuid
-     *
      * @mbggenerated
      */
     public String getRoleUuid() {
@@ -91,7 +88,6 @@ public class RoleResourceRelations {
      * This method sets the value of the database column role_resource_relations.role_uuid
      *
      * @param roleUuid the value for role_resource_relations.role_uuid
-     *
      * @mbggenerated
      */
     public void setRoleUuid(String roleUuid) {
@@ -103,7 +99,6 @@ public class RoleResourceRelations {
      * This method returns the value of the database column role_resource_relations.resource_uuid
      *
      * @return the value of role_resource_relations.resource_uuid
-     *
      * @mbggenerated
      */
     public String getResourceUuid() {
@@ -115,11 +110,19 @@ public class RoleResourceRelations {
      * This method sets the value of the database column role_resource_relations.resource_uuid
      *
      * @param resourceUuid the value for role_resource_relations.resource_uuid
-     *
      * @mbggenerated
      */
     public void setResourceUuid(String resourceUuid) {
         this.resourceUuid = resourceUuid == null ? null : resourceUuid.trim();
     }
 
+
+    @Override
+    public String toString() {
+        return "RoleResourceRelations{" +
+                "recordUuid='" + recordUuid + '\'' +
+                ", roleUuid='" + roleUuid + '\'' +
+                ", resourceUuid='" + resourceUuid + '\'' +
+                '}';
+    }
 }

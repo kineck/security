@@ -12,5 +12,7 @@ public interface RoleInfoService {
 
     RoleInfo selectByPrimaryKey(String roleUuid);
 
+    List<RoleInfo> selectRoleByUsername(String username);
+
     List<RoleInfo> lists();
 }

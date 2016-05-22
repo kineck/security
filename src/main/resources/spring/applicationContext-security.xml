@@ -6,14 +6,32 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
-    <security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/*" access="hasRole('ROLE_USER')"/>
+    <security:debug/>
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/*" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/bootstrap/**" access="permitAll"/>
+        <security:intercept-url pattern="/user/login" access="permitAll"/>
+        <!--<security:intercept-url pattern="/**" access=""/>-->
+        <security:anonymous enabled="true" granted-authority="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:form-login login-page="/user/login" password-parameter="password" username-parameter="username"
+                             authentication-failure-url="/user/login?error" login-processing-url="/login"/>
+        <security:remember-me remember-me-parameter="remember" user-service-ref="iUserDetailsService"/>
+        <security:csrf disabled="true"/>
     </security:http>
+
+    <!--认证管理-->
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="admin" password="admin" authorities="ROLE_USER"></security:user>
-            </security:user-service>
+        <security:authentication-provider user-service-ref="iUserDetailsService">
+            <security:password-encoder ref="passwordEncoder" hash="md5">
+                <!--<security:salt-source user-property="username"/>-->
+            </security:password-encoder>
         </security:authentication-provider>
     </security:authentication-manager>
+    <bean id="iUserDetailsService" class="net.mouza.security.service.impl.IUserDetailsServiceImpl">
+    </bean>
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <bean id="loggerListener"
+          class="org.springframework.security.authentication.event.LoggerListener"/>
+    <bean id="authorizationListener"
+          class="org.springframework.security.access.event.LoggerListener"/>
 </beans>
