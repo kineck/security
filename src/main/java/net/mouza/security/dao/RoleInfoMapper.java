@@ -63,4 +63,5 @@ public interface RoleInfoMapper {
     List<RoleInfo> selectRoleByUsername(String username);
 
 
+    List<RoleInfo> selectRoleByUrl(String url);
 }

@@ -48,6 +48,18 @@
             AND ur.role_uuid = r.role_uuid
             AND u.user_name = #{username}
     </select>
+    <select id="selectRoleByUrl" resultType="net.mouza.security.entity.RoleInfo">
+        SELECT
+            *
+        FROM
+            role_resource_relations rrr ,
+            role_info role ,
+            resource_info res
+        WHERE
+            rrr.role_uuid = role.role_uuid
+        AND rrr.resource_uuid = res.resource_uuid
+        AND res.resource_uri = #{url}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         <!--
           WARNING - @mbggenerated

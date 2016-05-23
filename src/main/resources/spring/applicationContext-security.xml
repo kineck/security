@@ -2,16 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security.xsd">
+       http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     <security:debug/>
+    <security:http pattern="/bootstrap/**" security="none"/>
+    <security:http pattern="/static/**" security="none"/>
+    <security:http pattern="/user/login" security="none"/>
     <security:http auto-config="true">
-        <security:intercept-url pattern="/*" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/bootstrap/**" access="permitAll"/>
-        <security:intercept-url pattern="/user/login" access="permitAll"/>
-        <!--<security:intercept-url pattern="/**" access=""/>-->
         <security:anonymous enabled="true" granted-authority="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <security:form-login login-page="/user/login" password-parameter="password" username-parameter="username"
                              authentication-failure-url="/user/login?error" login-processing-url="/login"/>
@@ -23,7 +23,6 @@
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="iUserDetailsService">
             <security:password-encoder ref="passwordEncoder" hash="md5">
-                <!--<security:salt-source user-property="username"/>-->
             </security:password-encoder>
         </security:authentication-provider>
     </security:authentication-manager>
@@ -34,4 +33,51 @@
           class="org.springframework.security.authentication.event.LoggerListener"/>
     <bean id="authorizationListener"
           class="org.springframework.security.access.event.LoggerListener"/>
+    <bean id="accessDecisionManager"
+          class="org.springframework.security.access.vote.AffirmativeBased">
+        <property name="allowIfAllAbstainDecisions" value="false"/>
+        <constructor-arg name="decisionVoters">
+            <util:list>
+                <bean class="org.springframework.security.access.vote.RoleVoter">
+                    <property name="rolePrefix" value=""/>
+                </bean>
+                <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="securityMetadataSource" class="net.mouza.security.CFilterInvocationSecurityMetadataSource"/>
+
+    <bean id="filterSecurityInterceptor"
+          class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <property name="securityMetadataSource">
+            <ref bean="securityMetadataSource"/>
+        </property>
+    </bean>
+
+    <bean id="authenticationManager"
+          class="org.springframework.security.authentication.ProviderManager">
+        <constructor-arg name="providers">
+            <util:list>
+                <ref bean="daoAuthenticationProvider"/>
+                <ref bean="rememberMeAuthenticationProvider"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="daoAuthenticationProvider"
+          class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="iUserDetailsService"/>
+        <!-- 当用户不存在时，能够抛出UsernameNotFoundException异常 -->
+        <property name="hideUserNotFoundExceptions" value="false"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+
+    <bean id="rememberMeAuthenticationProvider"
+          class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
+        <constructor-arg name="key" value="eGaln6MmeZ2yMad-#Ori$BS=J)Mi!xyR3B3S"/>
+    </bean>
+
 </beans>

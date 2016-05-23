@@ -56,4 +56,9 @@ public class RoleInfoServiceImpl implements RoleInfoService {
         return roleInfoMapper.lists();
     }
 
+    @Override
+    public List<RoleInfo> selectRoleByUrl(String url) {
+        return roleInfoMapper.selectRoleByUrl(url);
+    }
+
 }

@@ -48,5 +48,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: commons-io:commons-io:2.2"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.apache.commons:commons-lang3:3.1"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: org.apache.commons:commons-collections4:4.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ie8-responsive-file-warning"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ie-emulation-modes-warning"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

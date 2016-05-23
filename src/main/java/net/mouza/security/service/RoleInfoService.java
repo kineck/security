@@ -15,4 +15,6 @@ public interface RoleInfoService {
     List<RoleInfo> selectRoleByUsername(String username);
 
     List<RoleInfo> lists();
+
+    List<RoleInfo> selectRoleByUrl(String url);
 }
