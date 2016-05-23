@@ -17,10 +17,11 @@
                              authentication-failure-url="/user/login?error" login-processing-url="/login"/>
         <security:remember-me remember-me-parameter="remember" user-service-ref="iUserDetailsService"/>
         <security:csrf disabled="true"/>
+        <security:custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
     </security:http>
 
     <!--认证管理-->
-    <security:authentication-manager>
+    <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider user-service-ref="iUserDetailsService">
             <security:password-encoder ref="passwordEncoder" hash="md5">
             </security:password-encoder>
@@ -34,7 +35,7 @@
     <bean id="authorizationListener"
           class="org.springframework.security.access.event.LoggerListener"/>
     <bean id="accessDecisionManager"
-          class="org.springframework.security.access.vote.AffirmativeBased">
+          class="net.mouza.security.CAccessDecisionManager">
         <property name="allowIfAllAbstainDecisions" value="false"/>
         <constructor-arg name="decisionVoters">
             <util:list>
@@ -46,15 +47,20 @@
         </constructor-arg>
     </bean>
 
-    <bean id="securityMetadataSource" class="net.mouza.security.CFilterInvocationSecurityMetadataSource"/>
+
+    <bean id="securityMetadataSource" class="net.mouza.security.CFilterInvocationSecurityMetadataSource"
+          autowire="byName">
+        <constructor-arg name="res" ref="resourceInfoServiceImpl"></constructor-arg>
+        <constructor-arg name="role" ref="roleInfoServiceImpl"></constructor-arg>
+    </bean>
+
 
     <bean id="filterSecurityInterceptor"
-          class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+          class="net.mouza.security.CSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
-        <property name="securityMetadataSource">
-            <ref bean="securityMetadataSource"/>
-        </property>
+        <property name="securityMetadataSource" ref="securityMetadataSource"/>
+
     </bean>
 
     <bean id="authenticationManager"
@@ -78,6 +84,14 @@
     <bean id="rememberMeAuthenticationProvider"
           class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
         <constructor-arg name="key" value="eGaln6MmeZ2yMad-#Ori$BS=J)Mi!xyR3B3S"/>
+    </bean>
+
+    <bean id="securityContextRepository"
+          class="org.springframework.security.web.context.HttpSessionSecurityContextRepository"/>
+
+    <bean id="securityContextPersistenceFilter"
+          class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+        <constructor-arg ref="securityContextRepository"/>
     </bean>
 
 </beans>

@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Service
 public class IUserDetailsServiceImpl implements IUserDetailsService {
-    private static final Logger logger = LoggerFactory.getLogger(IUserDetailsServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserInfoMapper userInfoMapper;
 

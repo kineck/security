@@ -48,9 +48,9 @@
             AND ur.role_uuid = r.role_uuid
             AND u.user_name = #{username}
     </select>
-    <select id="selectRoleByUrl" resultType="net.mouza.security.entity.RoleInfo">
+    <select id="selectRoleByUrl" resultMap="BaseResultMap">
         SELECT
-            *
+            role.*
         FROM
             role_resource_relations rrr ,
             role_info role ,
